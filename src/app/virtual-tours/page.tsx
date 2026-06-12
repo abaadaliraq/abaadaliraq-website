@@ -15,6 +15,7 @@ const completedTours = [
     sectorEn: "Cultural / Commercial Space",
     sectorAr: "مساحة ثقافية وتجارية",
     sectorKu: "شوێنی کولتووری و بازرگانی",
+    url: "https://my.matterport.com/show/?m=rUWyUPkBTgF",
   },
   {
     en: "Coral Palace Hotel",
@@ -23,15 +24,17 @@ const completedTours = [
     sectorEn: "Hotel",
     sectorAr: "فندق",
     sectorKu: "هۆتێل",
+    url: "https://my.matterport.com/show/?m=tC4RfesELZw",
   },
-  {
-    en: "United Factory",
-    ar: "معمل المتحدة",
-    ku: "کارگەی یەکگرتوو",
-    sectorEn: "Industrial Facility",
-    sectorAr: "منشأة صناعية",
-    sectorKu: "دامەزراوەی پیشەسازی",
-  },
+{
+  en: "Coral Village",
+  ar: "قرية كورال",
+  ku: "گوندی کۆرال",
+  sectorEn: "Hospitality / Residential Village",
+  sectorAr: "قرية ضيافة وسكن",
+  sectorKu: "گوندی میوانداری و نیشتەجێبوون",
+  url: "https://my.matterport.com/show/?m=tC4RfesELZw",
+},
   {
     en: "Babylon Rotana Halls",
     ar: "قاعات بابل روتانا",
@@ -39,6 +42,25 @@ const completedTours = [
     sectorEn: "Event Halls",
     sectorAr: "صالات مناسبات",
     sectorKu: "هۆڵی بۆنەکان",
+    url: "https://my.matterport.com/show/?m=vNHafUTWuoT",
+  },
+  {
+    en: "Royal Suite",
+    ar: "الجناح الملكي",
+    ku: "سویتی شاهانە",
+    sectorEn: "Hospitality Suite",
+    sectorAr: "جناح فندقي",
+    sectorKu: "سویتی هۆتێلی",
+    url: "https://my.matterport.com/show/?m=1GypfACJ5tc",
+  },
+  {
+    en: "Hotel Room",
+    ar: "غرفة فندقية",
+    ku: "ژووری هۆتێل",
+    sectorEn: "Hotel Room",
+    sectorAr: "غرفة فندقية",
+    sectorKu: "ژووری هۆتێل",
+    url: "https://my.matterport.com/show/?m=sbRGf39bSLh",
   },
   {
     en: "Alps Restaurant",
@@ -47,6 +69,7 @@ const completedTours = [
     sectorEn: "Restaurant",
     sectorAr: "مطعم",
     sectorKu: "چێشتخانە",
+    url: "https://my.matterport.com/show/?m=eAcdEfFhKUB",
   },
   {
     en: "Mutanabbi Street",
@@ -55,6 +78,16 @@ const completedTours = [
     sectorEn: "Cultural Destination",
     sectorAr: "وجهة ثقافية",
     sectorKu: "شوێنی کولتووری",
+    url: "https://my.matterport.com/show/?m=o5utxom1Q1g",
+  },
+  {
+    en: "Exhibition / Showroom Tour",
+    ar: "جولة معرض أو قاعة عرض",
+    ku: "گەشتی پیشانگا یان هۆڵی پیشاندان",
+    sectorEn: "Exhibition / Showroom",
+    sectorAr: "معرض / قاعة عرض",
+    sectorKu: "پیشانگا / هۆڵی پیشاندان",
+    url: "https://my.matterport.com/show/?m=YC54uY9CvVj",
   },
 ];
 
@@ -141,6 +174,8 @@ const text = {
     completedTitle: "Part of our completed virtual tours in Iraq",
     completedText:
       "A selected group of virtual tours executed for different sectors inside Iraq.",
+    explore: "Explore Tour",
+    addLink: "Add tour link here",
     noteTitle: "Important note",
     noteText:
       "Not every project needs VR. Sometimes a direct link or screen display is the smarter and faster option. The right choice depends on the goal, audience, and place of presentation.",
@@ -228,6 +263,8 @@ const text = {
     completedTitle: "جزء من الجولات الافتراضية المنفذة داخل العراق",
     completedText:
       "نماذج مختارة من جولات افتراضية تم تنفيذها لقطاعات مختلفة داخل العراق.",
+    explore: "استكشف الجولة",
+    addLink: "أضيفي رابط الجولة هنا",
     noteTitle: "نقطة مهمة",
     noteText:
       "ليس كل مشروع يحتاج VR. أحيانًا يكون الرابط المباشر أو العرض على الشاشة هو الخيار الأذكى والأسرع. المهم هو اختيار وسيلة العرض حسب الهدف، الجمهور، ومكان التقديم.",
@@ -315,6 +352,8 @@ const text = {
     completedTitle: "بەشێک لە گەشتە خەیاڵییە جێبەجێکراوەکانمان لە عێراق",
     completedText:
       "نمونەی هەڵبژێردراو لە گەشتی خەیاڵی بۆ کەرتە جیاوازەکان لە عێراق.",
+    explore: "بینینی گەشت",
+    addLink: "لێرە بەستەری گەشت زیاد بکە",
     noteTitle: "تێبینی گرنگ",
     noteText:
       "هەموو پڕۆژەیەک پێویستی بە VR نییە. هەندێک جار بەستەر یان شاشە باشترین و خێراترین هەڵبژاردەیە.",
@@ -391,7 +430,7 @@ export default function VirtualToursPage() {
 
           <section className="mt-6">
             <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-              <div className="sticky top-28 rounded-[28px] bg-[#f7f5ee] p-7 shadow-lg shadow-black/5 sm:p-8">
+              <div className="rounded-[28px] bg-[#f7f5ee] p-7 shadow-lg shadow-black/5 sm:p-8 lg:sticky lg:top-28">
                 <h2 className="text-3xl font-black tracking-[-0.04em]">
                   {t.sectorsTitle}
                 </h2>
@@ -445,6 +484,7 @@ export default function VirtualToursPage() {
                       <span className="inline-flex w-fit rounded-full bg-[#e11d48] px-4 py-2 text-xs font-black tracking-[0.2em]">
                         {method.label}
                       </span>
+
                       <div>
                         <h3 className="text-xl font-black">{method.title}</h3>
                         <p className="mt-2 text-sm leading-7 text-white/62">
@@ -476,7 +516,9 @@ export default function VirtualToursPage() {
                   <span className="text-5xl font-black tracking-[-0.08em] text-black/5">
                     0{index + 1}
                   </span>
+
                   <h3 className="mt-4 text-xl font-black">{card.title}</h3>
+
                   <p className="mt-4 text-sm leading-8 text-black/65">
                     {card.text}
                   </p>
@@ -485,15 +527,20 @@ export default function VirtualToursPage() {
             </div>
           </section>
 
-          <section className="mt-6 overflow-hidden rounded-[34px] bg-[#080808] text-white">
+          <section
+            id="vr"
+            className="mt-6 scroll-mt-28 overflow-hidden rounded-[34px] bg-[#080808] text-white"
+          >
             <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
               <div className="p-7 sm:p-10 lg:p-12">
                 <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e11d48]">
                   VR Experience
                 </p>
+
                 <h2 className="mt-5 text-3xl font-black leading-tight tracking-[-0.04em] sm:text-5xl">
                   {t.vrTitle}
                 </h2>
+
                 <p className="mt-6 text-sm leading-8 text-white/68 sm:text-base">
                   {t.vrText}
                 </p>
@@ -526,48 +573,95 @@ export default function VirtualToursPage() {
                   <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e11d48]">
                     Completed in Iraq
                   </p>
+
                   <h2 className="mt-4 text-3xl font-black tracking-[-0.04em] sm:text-5xl">
                     {t.completedTitle}
                   </h2>
                 </div>
+
                 <p className="text-sm leading-8 text-black/65 sm:text-base">
                   {t.completedText}
                 </p>
               </div>
             </div>
 
-            <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {completedTours.map((tour, index) => (
-                <motion.article
-                  key={tour.en}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-70px" }}
-                  transition={{ duration: 0.6, delay: index * 0.05 }}
-                  className="group overflow-hidden rounded-[26px] bg-[#111] shadow-xl shadow-black/10"
-                >
-                  <div
-                    className="h-44 bg-cover bg-center transition duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: "url('/virtual-tour-gate.jpg')" }}
-                  />
-                  <div className="p-6 text-white">
-                    <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e11d48]">
-                      {lang === "ar"
-                        ? tour.sectorAr
-                        : lang === "ku"
-                          ? tour.sectorKu
-                          : tour.sectorEn}
-                    </p>
-                    <h3 className="mt-3 text-2xl font-black tracking-[-0.04em]">
-                      {lang === "ar"
-                        ? tour.ar
-                        : lang === "ku"
-                          ? tour.ku
-                          : tour.en}
-                    </h3>
-                  </div>
-                </motion.article>
-              ))}
+            <div className="mt-5 grid gap-5 lg:grid-cols-3">
+              {completedTours.map((tour, index) => {
+                const hasUrl = tour.url && tour.url !== "#";
+
+                return (
+                  <motion.article
+                    key={tour.en}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-70px" }}
+                    transition={{ duration: 0.6, delay: index * 0.04 }}
+                    className="overflow-hidden rounded-[28px] bg-[#111] shadow-xl shadow-black/10"
+                  >
+                    <div className="border-b border-white/10 px-5 py-4 text-white">
+                      <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e11d48]">
+                        {lang === "ar"
+                          ? tour.sectorAr
+                          : lang === "ku"
+                            ? tour.sectorKu
+                            : tour.sectorEn}
+                      </p>
+
+                      <h3 className="mt-3 text-2xl font-black tracking-[-0.04em]">
+                        {lang === "ar"
+                          ? tour.ar
+                          : lang === "ku"
+                            ? tour.ku
+                            : tour.en}
+                      </h3>
+                    </div>
+
+                    <div className="bg-[#0b0b0b] p-3">
+                      <div className="mb-3 flex items-center justify-between px-1">
+                        <div className="flex items-center gap-1.5">
+                          <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-white/18" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-white/12" />
+                        </div>
+
+                        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/30">
+                          360°
+                        </span>
+                      </div>
+
+                      <div className="relative overflow-hidden rounded-[20px] bg-[#ebe9df]">
+                        {hasUrl ? (
+                          <iframe
+                            src={tour.url}
+                            title={tour.en}
+                            loading="lazy"
+                            className="h-[320px] w-full border-0"
+                          />
+                        ) : (
+                          <div className="flex h-[320px] items-center justify-center bg-[#d8d7d1] p-6 text-center">
+                            <p className="max-w-xs text-sm font-bold leading-7 text-black/45">
+                              {t.addLink}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      <a
+                        href={hasUrl ? tour.url : "#"}
+                        target={hasUrl ? "_blank" : undefined}
+                        rel={hasUrl ? "noreferrer" : undefined}
+                        className={`mt-3 flex h-11 w-full items-center justify-center rounded-full text-sm font-bold transition ${
+                          hasUrl
+                            ? "bg-[#e11d48] text-white hover:bg-[#ff2f61]"
+                            : "cursor-not-allowed bg-white/10 text-white/35"
+                        }`}
+                      >
+                        {t.explore}
+                      </a>
+                    </div>
+                  </motion.article>
+                );
+              })}
             </div>
           </section>
 
@@ -576,6 +670,7 @@ export default function VirtualToursPage() {
               <h2 className="text-3xl font-black tracking-[-0.04em]">
                 {t.noteTitle}
               </h2>
+
               <p className="text-sm leading-8 text-white/68 sm:text-base">
                 {t.noteText}
               </p>

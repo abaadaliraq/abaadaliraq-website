@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Manrope, Noto_Kufi_Arabic } from "next/font/google";
 
@@ -61,11 +61,18 @@ export default function TopBar({ lang, setLang }: TopBarProps) {
 
   const isRtl = lang === "ar" || lang === "ku";
   const fontClass = isRtl ? arabicFont.className : latinFont.className;
+  useEffect(() => {
+  const savedLang = localStorage.getItem("abaad_lang") as Lang | null;
 
-  const handleLangChange = (value: Lang) => {
-    setLang(value);
-  };
+  if (savedLang === "en" || savedLang === "ar" || savedLang === "ku") {
+    setLang(savedLang);
+  }
+}, [setLang]);
 
+const handleLangChange = (value: Lang) => {
+  setLang(value);
+  localStorage.setItem("abaad_lang", value);
+};
   return (
     <header
       dir={isRtl ? "rtl" : "ltr"}
@@ -78,6 +85,7 @@ className={`${fontClass} absolute left-0 top-0 z-[100] w-full px-4 pt-4 sm:px-6 
             onClick={() => setIsOpen(false)}
             className="flex shrink-0 items-center"
           >
+            
             <Image
               src="/logo.png"
               alt="Abaad Al-Iraq Logo"
