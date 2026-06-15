@@ -115,7 +115,7 @@ const projects = [
       ar: "صفحة حجوزات بسيطة لاستقبال طلبات الزيارة وتنظيم الحجوزات بشكل واضح.",
       ku: "پەڕەیەکی سادە بۆ وەرگرتنی داواکاری سەردان و ڕێکخستنی حجزەکان.",
     },
-    url: "https://houseofantiques.github.io/Booking-/",
+    url: "https://hoa-booking-seven.vercel.app/",
   },
   {
     type: {

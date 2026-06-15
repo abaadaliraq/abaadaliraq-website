@@ -24,7 +24,7 @@ const completedTours = [
     sectorEn: "Hotel",
     sectorAr: "فندق",
     sectorKu: "هۆتێل",
-    url: "https://my.matterport.com/show/?m=tC4RfesELZw",
+    url: "https://my.matterport.com/show/?m=2EJ9faB8BSD",
   },
 {
   en: "Coral Village",
