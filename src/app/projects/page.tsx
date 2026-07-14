@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import TopBar from "../../components/TopBar";
 import Footer from "../../components/Footer";
@@ -26,6 +25,8 @@ const projects = [
       ku: "ئەپێکی دیجیتاڵی بۆ هەڵسەنگاندنی کۆنەبابەت و کۆکراوەکان بە ئەزموونێکی ڕێکخراو.",
     },
     url: "https://antiques-lens.vercel.app/",
+    projectType: "app",
+    googlePlayUrl: "https://play.google.com/store/apps/details?id=com.kishib.app",
   },
   {
     type: {
@@ -144,6 +145,7 @@ const pageText = {
     text: "A selected collection of websites, applications, stores, menus, booking pages, and online platforms built by Abaad Al-Iraq.",
     note: "Some websites may block iframe preview for security reasons. In that case, use the open project button.",
     open: "Open Project",
+    downloadApp: "Download App",
     preview: "Live Preview",
   },
   ar: {
@@ -152,6 +154,7 @@ const pageText = {
     text: "مجموعة مختارة من المواقع، التطبيقات، المتاجر، المنيوهات، صفحات الحجز، والمنصات الإلكترونية التي نفذتها أبعاد العراق.",
     note: "بعض المواقع قد لا تسمح بالعرض داخل iframe لأسباب أمنية. في هذه الحالة استخدم زر فتح المشروع.",
     open: "فتح المشروع",
+    downloadApp: "تحميل التطبيق",
     preview: "معاينة مباشرة",
   },
   ku: {
@@ -160,6 +163,7 @@ const pageText = {
     text: "کۆمەڵێک لە ماڵپەڕ، ئەپ، فرۆشگا، مینیو، پەڕەی حجزکردن، و پلاتفۆرمی ئۆنلاین کە لەلایەن ئەبعاد عێراقەوە جێبەجێ کراون.",
     note: "هەندێک ماڵپەڕ لەبەر هۆکاری ئاسایش ڕێگە بە iframe نادات. لەو کاتەدا دوگمەی کردنەوە بەکاربهێنە.",
     open: "کردنەوەی پڕۆژە",
+    downloadApp: "داگرتنی ئەپ",
     preview: "پێشبینینی زیندوو",
   },
 };
@@ -210,13 +214,14 @@ export default function ProjectsPage() {
             {t.note}
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:grid-cols-3">
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.url}
                 project={project}
                 lang={lang}
                 openLabel={t.open}
+                downloadAppLabel={t.downloadApp}
                 previewLabel={t.preview}
                 index={index}
               />
@@ -234,63 +239,69 @@ function ProjectCard({
   project,
   lang,
   openLabel,
+  downloadAppLabel,
   previewLabel,
   index,
 }: {
   project: (typeof projects)[number];
   lang: Lang;
   openLabel: string;
+  downloadAppLabel: string;
   previewLabel: string;
   index: number;
 }) {
+  const isApp = project.projectType === "app" && project.googlePlayUrl;
+  const actionUrl = isApp ? project.googlePlayUrl : project.url;
+  const actionLabel = isApp ? downloadAppLabel : openLabel;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.65, delay: index * 0.04, ease: "easeOut" }}
-      className="overflow-hidden rounded-[30px] bg-[#ebe9df] shadow-xl shadow-black/10"
+      className="flex h-full flex-col rounded-[20px] bg-[#ebe9df] shadow-xl shadow-black/10 sm:rounded-[26px] lg:rounded-[30px]"
     >
-      <div className="border-b border-black/10 px-5 py-5 sm:px-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e11d48]">
+      <div className="border-b border-black/10 px-3 py-3 sm:px-5 sm:py-5 lg:px-6">
+        <div className="flex h-full flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0">
+            <p className="truncate text-[9px] font-bold uppercase tracking-[0.16em] text-[#e11d48] sm:text-xs sm:tracking-[0.24em]">
               {project.type[lang]}
             </p>
 
-            <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] text-[#111]">
+            <h2 className="mt-2 text-base font-black leading-snug tracking-[-0.03em] text-[#111] sm:mt-3 sm:text-2xl sm:tracking-[-0.04em]">
               {project.title[lang]}
             </h2>
 
-            <p className="mt-3 max-w-xl text-sm leading-7 text-black/60">
+            <p className="project-description mt-2 max-w-xl text-[11px] leading-5 text-black/60 sm:mt-3 sm:text-sm sm:leading-7">
               {project.description[lang]}
             </p>
           </div>
 
           <a
-            href={project.url}
+            href={actionUrl}
             target="_blank"
-            rel="noreferrer"
-            className="inline-flex h-11 shrink-0 items-center justify-center rounded-full bg-[#111] px-5 text-sm font-bold text-white transition hover:bg-[#e11d48]"
+            rel="noopener noreferrer"
+            className="hidden h-11 shrink-0 items-center justify-center rounded-full bg-[#111] px-5 text-sm font-bold text-white transition hover:bg-[#e11d48] sm:inline-flex"
           >
-            {openLabel}
+            {actionLabel}
           </a>
         </div>
       </div>
 
-      <div className="bg-[#111] p-3 sm:p-4">
-        <div className="mb-3 flex items-center justify-between px-1">
+      <div className="mt-auto bg-[#111] p-2 sm:p-3 lg:p-4">
+        <div className="mb-2 flex items-center justify-between px-1 sm:mb-3">
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-            <span className="h-2.5 w-2.5 rounded-full bg-white/18" />
-            <span className="h-2.5 w-2.5 rounded-full bg-white/12" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white/25 sm:h-2.5 sm:w-2.5" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white/18 sm:h-2.5 sm:w-2.5" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white/12 sm:h-2.5 sm:w-2.5" />
           </div>
 
           <p className="hidden text-xs text-white/35 sm:block">{previewLabel}</p>
         </div>
 
-        <div className="relative overflow-hidden rounded-[20px] bg-[#d8d7d1]">
-          <div className="hidden h-[430px] lg:block">
+        <div className="relative rounded-[14px] bg-[#d8d7d1] sm:rounded-[20px]">
+          <div className="hidden h-[360px] overflow-hidden rounded-[20px] lg:block">
             <iframe
               src={project.url}
               title={project.title.en}
@@ -300,28 +311,23 @@ function ProjectCard({
           </div>
 
           <div className="block lg:hidden">
-            <div className="relative h-[360px] overflow-hidden bg-[#f7f5ee]">
+            <div className="project-phone-screen relative bg-[#f7f5ee]">
               <iframe
                 src={project.url}
                 title={project.title.en}
                 loading="lazy"
-                className="h-full w-full scale-[0.72] border-0"
-                style={{
-                  width: "138.8%",
-                  height: "138.8%",
-                  transformOrigin: "top left",
-                }}
+                className="project-phone-iframe border-0"
               />
             </div>
 
-            <div className="border-t border-black/10 bg-[#f7f5ee] p-4">
+            <div className="border-t border-black/10 bg-[#f7f5ee] p-2 sm:p-3">
               <a
-                href={project.url}
+                href={actionUrl}
                 target="_blank"
-                rel="noreferrer"
-                className="flex h-11 w-full items-center justify-center rounded-full bg-[#111] text-sm font-bold text-white"
+                rel="noopener noreferrer"
+                className="flex h-9 w-full items-center justify-center rounded-full bg-[#111] px-2 text-center text-[11px] font-bold leading-tight text-white sm:h-11 sm:text-sm"
               >
-                {openLabel}
+                {actionLabel}
               </a>
             </div>
           </div>
