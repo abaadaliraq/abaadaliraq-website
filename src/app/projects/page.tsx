@@ -15,14 +15,14 @@ const projects = [
       ku: "ئەپ",
     },
     title: {
-      en: "Antique Evaluation Application",
-      ar: "تطبيق تقييم التحف",
-      ku: "ئەپڵیکەیشنی هەڵسەنگاندنی کۆنەبابەت",
+      en: "Kishib Application",
+      ar: "تطبيق كيشيب",
+      ku: "ئەپڵیکەیشنی کیشیب",
     },
     description: {
-      en: "A digital application built to evaluate antiques and collectible pieces through a smart and organized user experience.",
-      ar: "تطبيق رقمي مخصص لتقييم التحف والمقتنيات عبر تجربة استخدام ذكية ومنظمة.",
-      ku: "ئەپێکی دیجیتاڵی بۆ هەڵسەنگاندنی کۆنەبابەت و کۆکراوەکان بە ئەزموونێکی ڕێکخراو.",
+      en: "A professional mobile application by Kishib for antique evaluation and collectible piece review, available on Google Play.",
+      ar: "تطبيق كيشيب لتقييم التحف والمقتنيات عبر تجربة استخدام احترافية، متوفر للتحميل من متجر Google Play.",
+      ku: "ئەپێکی پیشەیی کیشیب بۆ هەڵسەنگاندنی کۆنەبابەت و کۆکراوەکان، لە Google Play بەردەستە.",
     },
     url: "https://antiques-lens.vercel.app/",
     projectType: "app",
@@ -147,6 +147,16 @@ const pageText = {
     open: "Open Project",
     downloadApp: "Download App",
     preview: "Live Preview",
+    capabilitiesBadge: "More than websites",
+    capabilitiesTitle: "We build complete digital systems for business growth.",
+    capabilitiesText:
+      "Alongside websites and applications, Abaad Al-Iraq develops practical systems for restaurants and stores, prepares feasibility studies, and designs professional presentations that help projects explain their value with confidence.",
+    capabilities: [
+      "Restaurant systems and digital menus",
+      "Store and sales management systems",
+      "Feasibility studies for new and existing projects",
+      "Professional business and investor presentations",
+    ],
   },
   ar: {
     badge: "مشاريعنا المنجزة",
@@ -156,6 +166,16 @@ const pageText = {
     open: "فتح المشروع",
     downloadApp: "تحميل التطبيق",
     preview: "معاينة مباشرة",
+    capabilitiesBadge: "أكثر من مواقع إلكترونية",
+    capabilitiesTitle: "ننفذ حلولاً رقمية متكاملة تساعد المشاريع على النمو.",
+    capabilitiesText:
+      "إلى جانب تصميم المواقع والتطبيقات، تعمل أبعاد العراق على بناء أنظمة عملية للمطاعم والمتاجر، وإعداد دراسات جدوى، وتصميم عروض تقديمية احترافية تساعد المشروع على عرض فكرته وقيمته بثقة.",
+    capabilities: [
+      "أنظمة للمطاعم والمنيوهات الرقمية",
+      "أنظمة للمتاجر وإدارة المبيعات",
+      "دراسات جدوى للمشاريع الجديدة والقائمة",
+      "عروض تقديمية احترافية للأعمال والمستثمرين",
+    ],
   },
   ku: {
     badge: "پڕۆژە تەواوکراوەکان",
@@ -165,6 +185,16 @@ const pageText = {
     open: "کردنەوەی پڕۆژە",
     downloadApp: "داگرتنی ئەپ",
     preview: "پێشبینینی زیندوو",
+    capabilitiesBadge: "زیاتر لە ماڵپەڕ",
+    capabilitiesTitle: "چارەسەری دیجیتاڵی تەواو بۆ گەشەی پڕۆژەکان دروست دەکەین.",
+    capabilitiesText:
+      "لەگەڵ دروستکردنی ماڵپەڕ و ئەپ، ئەبعاد عێراق سیستەمی کارا بۆ چێشتخانە و فرۆشگا، توێژینەوەی جدوى، و پێشکەشکردنی پیشەیی بۆ ناساندنی بەهای پڕۆژەکان ئامادە دەکات.",
+    capabilities: [
+      "سیستەمی چێشتخانە و مینیوی دیجیتاڵ",
+      "سیستەمی فرۆشگا و بەڕێوەبردنی فرۆشتن",
+      "توێژینەوەی جدوى بۆ پڕۆژە نوێ و هەنووکەییەکان",
+      "پێشکەشکردنی پیشەیی بۆ کار و وەبەرهێنەر",
+    ],
   },
 };
 
@@ -214,7 +244,7 @@ export default function ProjectsPage() {
             {t.note}
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.url}
@@ -227,6 +257,47 @@ export default function ProjectsPage() {
               />
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1420px]">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+            className="relative overflow-hidden rounded-[28px] border border-black/10 bg-[#111] px-5 py-8 text-white shadow-xl shadow-black/10 sm:rounded-[34px] sm:px-8 sm:py-10 lg:px-12"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(225,29,72,0.2),transparent_30%),radial-gradient(circle_at_88%_78%,rgba(255,255,255,0.08),transparent_34%)]" />
+
+            <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+              <div>
+                <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
+                  {t.capabilitiesBadge}
+                </span>
+
+                <h2 className="mt-5 max-w-3xl text-2xl font-black leading-tight tracking-[-0.04em] sm:text-4xl lg:text-5xl">
+                  {t.capabilitiesTitle}
+                </h2>
+
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68 sm:text-base sm:leading-8">
+                  {t.capabilitiesText}
+                </p>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                {t.capabilities.map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-4 text-sm font-bold leading-6 text-white/86 backdrop-blur-xl"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -260,10 +331,10 @@ function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.65, delay: index * 0.04, ease: "easeOut" }}
-      className="flex h-full flex-col rounded-[20px] bg-[#ebe9df] shadow-xl shadow-black/10 sm:rounded-[26px] lg:rounded-[30px]"
+      className="project-card flex h-full flex-col rounded-[20px] bg-[#ebe9df] shadow-xl shadow-black/10 sm:rounded-[26px] lg:rounded-[30px]"
     >
-      <div className="border-b border-black/10 px-3 py-3 sm:px-5 sm:py-5 lg:px-6">
-        <div className="flex h-full flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div className="project-card-content border-b border-black/10 px-3 py-3 sm:px-5 sm:py-5 lg:px-6">
+        <div className="project-card-content-inner flex h-full flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div className="min-w-0">
             <p className="truncate text-[9px] font-bold uppercase tracking-[0.16em] text-[#e11d48] sm:text-xs sm:tracking-[0.24em]">
               {project.type[lang]}
@@ -282,14 +353,23 @@ function ProjectCard({
             href={actionUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden h-11 shrink-0 items-center justify-center rounded-full bg-[#111] px-5 text-sm font-bold text-white transition hover:bg-[#e11d48] sm:inline-flex"
+            className="hidden h-11 shrink-0 items-center justify-center rounded-full bg-[#111] px-5 text-sm font-bold text-white transition hover:bg-[#e11d48] md:inline-flex"
+          >
+            {actionLabel}
+          </a>
+
+          <a
+            href={actionUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-card-mobile-action flex h-8 shrink-0 items-center justify-center rounded-full bg-[#111] px-3 text-center text-[10px] font-bold leading-tight text-white transition hover:bg-[#e11d48] md:hidden"
           >
             {actionLabel}
           </a>
         </div>
       </div>
 
-      <div className="mt-auto bg-[#111] p-2 sm:p-3 lg:p-4">
+      <div className="project-card-preview mt-auto bg-[#111] p-2 sm:p-3 lg:p-4">
         <div className="mb-2 flex items-center justify-between px-1 sm:mb-3">
           <div className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-white/25 sm:h-2.5 sm:w-2.5" />
@@ -297,7 +377,7 @@ function ProjectCard({
             <span className="h-1.5 w-1.5 rounded-full bg-white/12 sm:h-2.5 sm:w-2.5" />
           </div>
 
-          <p className="hidden text-xs text-white/35 sm:block">{previewLabel}</p>
+          <p className="hidden text-xs text-white/35 md:block">{previewLabel}</p>
         </div>
 
         <div className="relative rounded-[14px] bg-[#d8d7d1] sm:rounded-[20px]">
@@ -320,7 +400,7 @@ function ProjectCard({
               />
             </div>
 
-            <div className="border-t border-black/10 bg-[#f7f5ee] p-2 sm:p-3">
+            <div className="hidden border-t border-black/10 bg-[#f7f5ee] p-2 md:block md:p-3 lg:hidden">
               <a
                 href={actionUrl}
                 target="_blank"

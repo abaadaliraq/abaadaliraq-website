@@ -18,24 +18,6 @@ const completedTours = [
     url: "https://my.matterport.com/show/?m=rUWyUPkBTgF",
   },
   {
-    en: "Coral Palace Hotel",
-    ar: "فندق قصر كورال",
-    ku: "هۆتێلی قەسری کۆرال",
-    sectorEn: "Hotel",
-    sectorAr: "فندق",
-    sectorKu: "هۆتێل",
-    url: "https://my.matterport.com/show/?m=2EJ9faB8BSD",
-  },
-{
-  en: "Coral Village",
-  ar: "قرية كورال",
-  ku: "گوندی کۆرال",
-  sectorEn: "Hospitality / Residential Village",
-  sectorAr: "قرية ضيافة وسكن",
-  sectorKu: "گوندی میوانداری و نیشتەجێبوون",
-  url: "https://my.matterport.com/show/?m=tC4RfesELZw",
-},
-  {
     en: "Babylon Rotana Halls",
     ar: "قاعات بابل روتانا",
     ku: "هۆڵەکانی بابل ڕۆتانا",
@@ -43,24 +25,6 @@ const completedTours = [
     sectorAr: "صالات مناسبات",
     sectorKu: "هۆڵی بۆنەکان",
     url: "https://my.matterport.com/show/?m=vNHafUTWuoT",
-  },
-  {
-    en: "Royal Suite",
-    ar: "الجناح الملكي",
-    ku: "سویتی شاهانە",
-    sectorEn: "Hospitality Suite",
-    sectorAr: "جناح فندقي",
-    sectorKu: "سویتی هۆتێلی",
-    url: "https://my.matterport.com/show/?m=1GypfACJ5tc",
-  },
-  {
-    en: "Hotel Room",
-    ar: "غرفة فندقية",
-    ku: "ژووری هۆتێل",
-    sectorEn: "Hotel Room",
-    sectorAr: "غرفة فندقية",
-    sectorKu: "ژووری هۆتێل",
-    url: "https://my.matterport.com/show/?m=sbRGf39bSLh",
   },
   {
     en: "Alps Restaurant",
@@ -79,15 +43,6 @@ const completedTours = [
     sectorAr: "وجهة ثقافية",
     sectorKu: "شوێنی کولتووری",
     url: "https://my.matterport.com/show/?m=o5utxom1Q1g",
-  },
-  {
-    en: "Exhibition / Showroom Tour",
-    ar: "جولة معرض أو قاعة عرض",
-    ku: "گەشتی پیشانگا یان هۆڵی پیشاندان",
-    sectorEn: "Exhibition / Showroom",
-    sectorAr: "معرض / قاعة عرض",
-    sectorKu: "پیشانگا / هۆڵی پیشاندان",
-    url: "https://my.matterport.com/show/?m=YC54uY9CvVj",
   },
 ];
 
@@ -404,7 +359,7 @@ export default function VirtualToursPage() {
       </section>
 
       <section className="relative -mt-10 px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[1420px] rounded-t-[36px] bg-[#ebe9df] px-5 py-8 shadow-2xl shadow-black/15 sm:px-8 lg:px-10 lg:py-10">
+        <div className="mx-auto flex max-w-[1420px] flex-col rounded-t-[36px] bg-[#ebe9df] px-5 py-8 shadow-2xl shadow-black/15 sm:px-8 lg:px-10 lg:py-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -566,7 +521,7 @@ export default function VirtualToursPage() {
             </div>
           </section>
 
-          <section className="mt-6">
+          <section className="order-first">
             <div className="rounded-[30px] bg-[#f7f5ee] p-7 sm:p-9">
               <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
                 <div>

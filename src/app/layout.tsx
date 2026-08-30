@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Abaad Al-Iraq | Virtual Tours in Iraq",
+  title: "أبعاد العراق | مواقع، أنظمة وجولات افتراضية في العراق",
   description:
-    "Abaad Al-Iraq creates immersive virtual tours and digital experiences for hotels, factories, cultural spaces, exhibitions, and businesses in Iraq.",
+    "أبعاد العراق شركة متخصصة في تطوير المواقع الإلكترونية والمتاجر والأنظمة الرقمية والجولات الافتراضية ثلاثية الأبعاد و360° للمشاريع والشركات في العراق.",
   verification: {
     other: {
       "msvalidate.01": "01BBC0FB5BE3F105123681E741F589C8",
@@ -30,7 +30,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="ar"
+      dir="rtl"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

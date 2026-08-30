@@ -19,20 +19,20 @@ const latinFont = Manrope({
 
 const content = {
   en: {
-    eyebrow: "Abaad Al-Iraq",
-    title: "Software solutions for modern spaces.",
-    text: "Websites, applications, systems and 360° virtual experiences for businesses that need a cleaner digital presence.",
-    primary: "View Projects",
-    secondary: "Start a Project",
+    eyebrow: "ABAAD IRAQ DIGITAL SOLUTIONS",
+    title: "We turn ideas into real digital experiences",
+    text: "We build websites, e-commerce platforms, custom digital systems, and immersive 3D virtual tours that help businesses present their services and spaces more professionally.",
+    primary: "Explore Our Work",
+    secondary: "Contact Us",
     points: ["Websites", "Applications", "Systems", "360° Tours"],
   },
 
   ar: {
-    eyebrow: "أبعاد العراق",
-    title: "حلول رقمية للمساحات الحديثة.",
-    text: "مواقع، تطبيقات، أنظمة وتجارب 360° للأعمال التي تحتاج حضورًا رقميًا أوضح وأكثر احترافية.",
-    primary: "عرض الأعمال",
-    secondary: "ابدأ مشروعك",
+    eyebrow: "أبعاد العراق للحلول الرقمية",
+    title: "نحوّل فكرتك إلى تجربة رقمية حقيقية",
+    text: "نطوّر المواقع الإلكترونية والمتاجر والأنظمة المخصصة، ونقدّم الجولات الافتراضية ثلاثية الأبعاد لمساعدة المشاريع على تقديم خدماتها وأماكنها بصورة أكثر احترافية ووضوحاً.",
+    primary: "استكشف أعمالنا",
+    secondary: "تواصل معنا",
     points: ["مواقع", "تطبيقات", "أنظمة", "جولات 360°"],
   },
 
