@@ -1,50 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import TopBar from "../../components/TopBar";
 import Footer from "../../components/Footer";
-
-type Lang = "en" | "ar" | "ku";
-
-const completedTours = [
-  {
-    en: "House of Antiques",
-    ar: "بيت التحفيات",
-    ku: "ماڵی کۆنەبابەتەکان",
-    sectorEn: "Cultural / Commercial Space",
-    sectorAr: "مساحة ثقافية وتجارية",
-    sectorKu: "شوێنی کولتووری و بازرگانی",
-    url: "https://my.matterport.com/show/?m=rUWyUPkBTgF",
-  },
-  {
-    en: "Babylon Rotana Halls",
-    ar: "قاعات بابل روتانا",
-    ku: "هۆڵەکانی بابل ڕۆتانا",
-    sectorEn: "Event Halls",
-    sectorAr: "صالات مناسبات",
-    sectorKu: "هۆڵی بۆنەکان",
-    url: "https://my.matterport.com/show/?m=vNHafUTWuoT",
-  },
-  {
-    en: "Alps Restaurant",
-    ar: "مطعم ألبس",
-    ku: "چێشتخانەی ئەڵپس",
-    sectorEn: "Restaurant",
-    sectorAr: "مطعم",
-    sectorKu: "چێشتخانە",
-    url: "https://my.matterport.com/show/?m=eAcdEfFhKUB",
-  },
-  {
-    en: "Mutanabbi Street",
-    ar: "شارع المتنبي",
-    ku: "شەقامی موتەنەبی",
-    sectorEn: "Cultural Destination",
-    sectorAr: "وجهة ثقافية",
-    sectorKu: "شوێنی کولتووری",
-    url: "https://my.matterport.com/show/?m=o5utxom1Q1g",
-  },
-];
+import TourImage from "../../components/virtual-tours/TourImage";
+import {
+  getLocalizedTourValue,
+  sortedVirtualTours,
+} from "../../data/virtualTours";
+import { getInitialLanguage, isRtlLanguage } from "../../lib/language";
 
 const text = {
   en: {
@@ -126,11 +92,11 @@ const text = {
       "Support international marketing when the visitor cannot physically reach the location.",
       "Combine VR with screens, QR codes, and short videos for a complete booth experience.",
     ],
-    completedTitle: "Part of our completed virtual tours in Iraq",
+    completedTitle: "Virtual tours we delivered in Iraq",
     completedText:
-      "A selected group of virtual tours executed for different sectors inside Iraq.",
+      "Selected projects from Abaad Iraq across the years.",
     explore: "Explore Tour",
-    addLink: "Add tour link here",
+    pendingImage: "Project image coming soon",
     noteTitle: "Important note",
     noteText:
       "Not every project needs VR. Sometimes a direct link or screen display is the smarter and faster option. The right choice depends on the goal, audience, and place of presentation.",
@@ -138,7 +104,7 @@ const text = {
 
   ar: {
     badge: "الجولات الافتراضية 360°",
-    title: "اعرض مكانك كتجربة رقمية واقعية.",
+    title: "جولات افتراضية ثلاثية الأبعاد و360° في العراق",
     heroText:
       "تساعد الجولات الافتراضية العميل على استكشاف مشروعك قبل زيارته، فهم تفاصيله بسرعة أكبر، والشعور بقيمة المكان من خلال تجربة تفاعلية واضحة.",
     introTitle: "ما هي الجولة الافتراضية؟",
@@ -215,11 +181,11 @@ const text = {
       "دعم التسويق الدولي عندما لا يستطيع الزائر الوصول للموقع فعليًا.",
       "دمج الـ VR مع الشاشات، QR Code، والفيديوهات القصيرة لتجربة عرض متكاملة.",
     ],
-    completedTitle: "جزء من الجولات الافتراضية المنفذة داخل العراق",
+    completedTitle: "جولات افتراضية نفذناها في العراق",
     completedText:
-      "نماذج مختارة من جولات افتراضية تم تنفيذها لقطاعات مختلفة داخل العراق.",
+      "نماذج مختارة من مشاريع أبعاد العراق عبر السنوات.",
     explore: "استكشف الجولة",
-    addLink: "أضيفي رابط الجولة هنا",
+    pendingImage: "صورة المشروع قريباً",
     noteTitle: "نقطة مهمة",
     noteText:
       "ليس كل مشروع يحتاج VR. أحيانًا يكون الرابط المباشر أو العرض على الشاشة هو الخيار الأذكى والأسرع. المهم هو اختيار وسيلة العرض حسب الهدف، الجمهور، ومكان التقديم.",
@@ -304,11 +270,11 @@ const text = {
       "پشتگیری بازاڕکردنی نێودەوڵەتی.",
       "تێکەڵکردنی VR لەگەڵ شاشە، QR Code و ڤیدیۆی کورتی ناساندن.",
     ],
-    completedTitle: "بەشێک لە گەشتە خەیاڵییە جێبەجێکراوەکانمان لە عێراق",
+    completedTitle: "گەشتی خەیاڵی کە لە عێراق جێبەجێمان کردووە",
     completedText:
-      "نمونەی هەڵبژێردراو لە گەشتی خەیاڵی بۆ کەرتە جیاوازەکان لە عێراق.",
+      "نمونەی هەڵبژێردراو لە پڕۆژەکانی ئەبعاد عێراق بە درێژایی ساڵان.",
     explore: "بینینی گەشت",
-    addLink: "لێرە بەستەری گەشت زیاد بکە",
+    pendingImage: "وێنەی پڕۆژە بەم زووانە",
     noteTitle: "تێبینی گرنگ",
     noteText:
       "هەموو پڕۆژەیەک پێویستی بە VR نییە. هەندێک جار بەستەر یان شاشە باشترین و خێراترین هەڵبژاردەیە.",
@@ -316,10 +282,10 @@ const text = {
 };
 
 export default function VirtualToursPage() {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState(getInitialLanguage);
 
   const t = text[lang];
-  const isRtl = lang === "ar" || lang === "ku";
+  const isRtl = isRtlLanguage(lang);
 
   return (
     <main
@@ -328,7 +294,7 @@ export default function VirtualToursPage() {
     >
       <TopBar lang={lang} setLang={setLang} />
 
-      <section className="relative min-h-[82vh] overflow-hidden">
+      <section className="relative min-h-[68vh] overflow-hidden sm:min-h-[82vh]">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/virtual-tour-gate.jpg')" }}
@@ -336,65 +302,65 @@ export default function VirtualToursPage() {
         <div className="absolute inset-0 bg-black/45" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-[#d8d7d1]" />
 
-        <div className="relative mx-auto flex min-h-[82vh] max-w-7xl items-end px-5 pb-16 pt-32 sm:px-8 lg:px-10">
+        <div className="relative mx-auto flex min-h-[68vh] max-w-7xl items-end px-4 pb-10 pt-28 sm:min-h-[82vh] sm:px-8 sm:pb-16 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-4xl"
           >
-            <span className="inline-flex rounded-full border border-white/25 bg-white/15 px-5 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-white backdrop-blur-xl">
+            <span className="inline-flex rounded-full border border-white/25 bg-white/15 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-xl sm:px-5 sm:text-xs sm:tracking-[0.26em]">
               {t.badge}
             </span>
 
-            <h1 className="mt-6 max-w-5xl text-4xl font-black leading-tight tracking-[-0.05em] text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 max-w-5xl text-3xl font-black leading-tight tracking-[-0.05em] text-white sm:mt-6 sm:text-6xl lg:text-7xl">
               {t.title}
             </h1>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/82 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/82 sm:mt-6 sm:text-lg sm:leading-8">
               {t.heroText}
             </p>
           </motion.div>
         </div>
       </section>
 
-      <section className="relative -mt-10 px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-[1420px] flex-col rounded-t-[36px] bg-[#ebe9df] px-5 py-8 shadow-2xl shadow-black/15 sm:px-8 lg:px-10 lg:py-10">
+      <section className="relative -mt-6 px-3 pb-12 sm:-mt-10 sm:px-6 sm:pb-20 lg:px-8">
+        <div className="mx-auto flex max-w-[1420px] flex-col rounded-t-[24px] bg-[#ebe9df] px-4 py-5 shadow-2xl shadow-black/15 sm:rounded-t-[36px] sm:px-8 sm:py-8 lg:px-10 lg:py-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-70px" }}
             transition={{ duration: 0.7 }}
-            className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]"
+            className="grid gap-4 sm:gap-6 lg:grid-cols-[0.8fr_1.2fr]"
           >
-            <div className="rounded-[28px] bg-[#111] p-7 text-white sm:p-9">
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e11d48]">
+            <div className="rounded-[20px] bg-[#111] p-5 text-white sm:rounded-[28px] sm:p-9">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#e11d48] sm:text-xs sm:tracking-[0.3em]">
                 360° Experience
               </p>
-              <h2 className="mt-5 text-3xl font-black tracking-[-0.04em] sm:text-5xl">
+              <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] sm:mt-5 sm:text-5xl">
                 {t.introTitle}
               </h2>
             </div>
 
-            <div className="rounded-[28px] bg-[#d8d7d1] p-7 sm:p-9">
-              <p className="text-sm leading-8 text-black/68 sm:text-base">
+            <div className="rounded-[20px] bg-[#d8d7d1] p-5 sm:rounded-[28px] sm:p-9">
+              <p className="text-sm leading-7 text-black/68 sm:text-base sm:leading-8">
                 {t.introText}
               </p>
             </div>
           </motion.div>
 
-          <section className="mt-6">
-            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-              <div className="rounded-[28px] bg-[#f7f5ee] p-7 shadow-lg shadow-black/5 sm:p-8 lg:sticky lg:top-28">
-                <h2 className="text-3xl font-black tracking-[-0.04em]">
+          <section className="mt-4 sm:mt-6">
+            <div className="grid gap-4 sm:gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+              <div className="rounded-[20px] bg-[#f7f5ee] p-5 shadow-lg shadow-black/5 sm:rounded-[28px] sm:p-8 lg:sticky lg:top-28">
+                <h2 className="text-2xl font-black tracking-[-0.04em] sm:text-3xl">
                   {t.sectorsTitle}
                 </h2>
-                <p className="mt-5 text-sm leading-8 text-black/65">
+                <p className="mt-3 text-sm leading-7 text-black/65 sm:mt-5 sm:leading-8">
                   {t.sectorsText}
                 </p>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
                 {t.sectors.map((sector, index) => (
                   <motion.div
                     key={sector}
@@ -402,7 +368,7 @@ export default function VirtualToursPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-70px" }}
                     transition={{ duration: 0.5, delay: index * 0.03 }}
-                    className="rounded-2xl bg-[#f7f5ee] px-5 py-4 text-sm font-bold text-black/72 shadow-sm"
+                    className="rounded-2xl bg-[#f7f5ee] px-4 py-3 text-sm font-bold text-black/72 shadow-sm sm:px-5 sm:py-4"
                   >
                     {sector}
                   </motion.div>
@@ -411,21 +377,21 @@ export default function VirtualToursPage() {
             </div>
           </section>
 
-          <section className="mt-6 rounded-[32px] bg-[#111] p-6 text-white sm:p-9 lg:p-11">
-            <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <section className="mt-4 rounded-[22px] bg-[#111] p-5 text-white sm:mt-6 sm:rounded-[32px] sm:p-9 lg:p-11">
+            <div className="grid gap-5 sm:gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e11d48]">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#e11d48] sm:text-xs sm:tracking-[0.3em]">
                   Display
                 </p>
-                <h2 className="mt-4 text-3xl font-black tracking-[-0.04em] sm:text-5xl">
+                <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] sm:mt-4 sm:text-5xl">
                   {t.displayTitle}
                 </h2>
-                <p className="mt-5 text-sm leading-8 text-white/65">
+                <p className="mt-3 text-sm leading-7 text-white/65 sm:mt-5 sm:leading-8">
                   {t.displayText}
                 </p>
               </div>
 
-              <div className="grid gap-4">
+              <div className="grid gap-3 sm:gap-4">
                 {t.methods.map((method, index) => (
                   <motion.article
                     key={method.label}
@@ -433,7 +399,7 @@ export default function VirtualToursPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-70px" }}
                     transition={{ duration: 0.5, delay: index * 0.05 }}
-                    className="rounded-[22px] border border-white/10 bg-white/[0.045] p-5"
+                    className="rounded-[18px] border border-white/10 bg-white/[0.045] p-4 sm:rounded-[22px] sm:p-5"
                   >
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5">
                       <span className="inline-flex w-fit rounded-full bg-[#e11d48] px-4 py-2 text-xs font-black tracking-[0.2em]">
@@ -441,7 +407,7 @@ export default function VirtualToursPage() {
                       </span>
 
                       <div>
-                        <h3 className="text-xl font-black">{method.title}</h3>
+                        <h3 className="text-lg font-black sm:text-xl">{method.title}</h3>
                         <p className="mt-2 text-sm leading-7 text-white/62">
                           {method.text}
                         </p>
@@ -453,12 +419,12 @@ export default function VirtualToursPage() {
             </div>
           </section>
 
-          <section className="mt-6">
-            <h2 className="mb-5 text-3xl font-black tracking-[-0.04em] sm:text-4xl">
+          <section className="mt-4 sm:mt-6">
+            <h2 className="mb-4 text-2xl font-black tracking-[-0.04em] sm:mb-5 sm:text-4xl">
               {t.whyTitle}
             </h2>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-3 sm:gap-5 md:grid-cols-3">
               {t.whyCards.map((card, index) => (
                 <motion.article
                   key={card.title}
@@ -466,15 +432,15 @@ export default function VirtualToursPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-70px" }}
                   transition={{ duration: 0.6, delay: index * 0.08 }}
-                  className="rounded-[26px] bg-[#f7f5ee] p-6 shadow-lg shadow-black/5"
+                  className="rounded-[20px] bg-[#f7f5ee] p-5 shadow-lg shadow-black/5 sm:rounded-[26px] sm:p-6"
                 >
-                  <span className="text-5xl font-black tracking-[-0.08em] text-black/5">
+                  <span className="text-4xl font-black tracking-[-0.08em] text-black/5 sm:text-5xl">
                     0{index + 1}
                   </span>
 
-                  <h3 className="mt-4 text-xl font-black">{card.title}</h3>
+                  <h3 className="mt-3 text-lg font-black sm:mt-4 sm:text-xl">{card.title}</h3>
 
-                  <p className="mt-4 text-sm leading-8 text-black/65">
+                  <p className="mt-3 text-sm leading-7 text-black/65 sm:mt-4 sm:leading-8">
                     {card.text}
                   </p>
                 </motion.article>
@@ -484,25 +450,25 @@ export default function VirtualToursPage() {
 
           <section
             id="vr"
-            className="mt-6 scroll-mt-28 overflow-hidden rounded-[34px] bg-[#080808] text-white"
+            className="mt-4 scroll-mt-28 overflow-hidden rounded-[24px] bg-[#080808] text-white sm:mt-6 sm:rounded-[34px]"
           >
             <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="p-7 sm:p-10 lg:p-12">
-                <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e11d48]">
+              <div className="p-5 sm:p-10 lg:p-12">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#e11d48] sm:text-xs sm:tracking-[0.3em]">
                   VR Experience
                 </p>
 
-                <h2 className="mt-5 text-3xl font-black leading-tight tracking-[-0.04em] sm:text-5xl">
+                <h2 className="mt-3 text-2xl font-black leading-tight tracking-[-0.04em] sm:mt-5 sm:text-5xl">
                   {t.vrTitle}
                 </h2>
 
-                <p className="mt-6 text-sm leading-8 text-white/68 sm:text-base">
+                <p className="mt-4 text-sm leading-7 text-white/68 sm:mt-6 sm:text-base sm:leading-8">
                   {t.vrText}
                 </p>
               </div>
 
-              <div className="bg-white/[0.04] p-7 sm:p-10 lg:p-12">
-                <div className="space-y-4">
+              <div className="bg-white/[0.04] p-5 sm:p-10 lg:p-12">
+                <div className="space-y-3 sm:space-y-4">
                   {t.vrPoints.map((point, index) => (
                     <motion.div
                       key={point}
@@ -510,7 +476,7 @@ export default function VirtualToursPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-70px" }}
                       transition={{ duration: 0.55, delay: index * 0.06 }}
-                      className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.045] p-4"
+                      className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.045] p-3 sm:gap-4 sm:p-4"
                     >
                       <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-[#e11d48]" />
                       <p className="text-sm leading-7 text-white/68">{point}</p>
@@ -521,112 +487,89 @@ export default function VirtualToursPage() {
             </div>
           </section>
 
-          <section className="order-first">
-            <div className="rounded-[30px] bg-[#f7f5ee] p-7 sm:p-9">
-              <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <section className="order-first mb-8 sm:mb-10">
+            <div className="rounded-[22px] bg-[#f7f5ee] p-5 sm:rounded-[30px] sm:p-9">
+              <div className="grid gap-3 sm:gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e11d48]">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#e11d48] sm:text-xs sm:tracking-[0.3em]">
                     Completed in Iraq
                   </p>
 
-                  <h2 className="mt-4 text-3xl font-black tracking-[-0.04em] sm:text-5xl">
+                  <h2 className="mt-3 text-2xl font-black leading-tight tracking-[-0.04em] sm:mt-4 sm:text-5xl">
                     {t.completedTitle}
                   </h2>
                 </div>
 
-                <p className="text-sm leading-8 text-black/65 sm:text-base">
+                <p className="text-sm leading-7 text-black/65 sm:text-base sm:leading-8">
                   {t.completedText}
                 </p>
               </div>
             </div>
 
-            <div className="mt-5 grid gap-5 lg:grid-cols-3">
-              {completedTours.map((tour, index) => {
-                const hasUrl = tour.url && tour.url !== "#";
+            <div className="mt-4 grid gap-4 sm:mt-5 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {sortedVirtualTours.map((tour, index) => {
+                const title = getLocalizedTourValue(tour.title, lang);
+                const category = getLocalizedTourValue(tour.category, lang);
 
                 return (
                   <motion.article
-                    key={tour.en}
+                    key={tour.slug}
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-70px" }}
                     transition={{ duration: 0.6, delay: index * 0.04 }}
-                    className="overflow-hidden rounded-[28px] bg-[#111] shadow-xl shadow-black/10"
+                    className="group overflow-hidden rounded-[20px] bg-[#111] shadow-xl shadow-black/10 sm:rounded-[28px]"
                   >
-                    <div className="border-b border-white/10 px-5 py-4 text-white">
-                      <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e11d48]">
-                        {lang === "ar"
-                          ? tour.sectorAr
-                          : lang === "ku"
-                            ? tour.sectorKu
-                            : tour.sectorEn}
-                      </p>
+                    <Link href={`/virtual-tours/${tour.slug}`} className="block h-full">
+                      <div className="relative aspect-[16/10] overflow-hidden bg-[#0b0b0b] sm:aspect-[4/3]">
+                        <TourImage
+                          src={tour.coverImage}
+                          alt={title}
+                          ready={tour.imagesReady}
+                          priority={index < 2}
+                          pendingLabel={t.pendingImage}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                          className="transition duration-700 group-hover:scale-105"
+                        />
+                      </div>
 
-                      <h3 className="mt-3 text-2xl font-black tracking-[-0.04em]">
-                        {lang === "ar"
-                          ? tour.ar
-                          : lang === "ku"
-                            ? tour.ku
-                            : tour.en}
-                      </h3>
-                    </div>
+                      <div className="p-4 text-white sm:p-6">
+                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#e11d48] sm:text-[11px] sm:tracking-[0.24em]">
+                          {category}
+                        </p>
 
-                    <div className="bg-[#0b0b0b] p-3">
-                      <div className="mb-3 flex items-center justify-between px-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-white/18" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-white/12" />
+                        <div className="mt-2.5 flex items-start justify-between gap-4 sm:mt-4 sm:items-end">
+                          <h3 className="text-xl font-black leading-tight tracking-[-0.04em] sm:text-2xl">
+                            {title}
+                          </h3>
                         </div>
 
-                        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/30">
-                          360°
-                        </span>
-                      </div>
+                        <p className="mt-4 hidden line-clamp-3 text-sm leading-7 text-white/58 sm:block">
+                          {getLocalizedTourValue(tour.description, lang)}
+                        </p>
 
-                      <div className="relative overflow-hidden rounded-[20px] bg-[#ebe9df]">
-                        {hasUrl ? (
-                          <iframe
-                            src={tour.url}
-                            title={tour.en}
-                            loading="lazy"
-                            className="h-[320px] w-full border-0"
-                          />
-                        ) : (
-                          <div className="flex h-[320px] items-center justify-center bg-[#d8d7d1] p-6 text-center">
-                            <p className="max-w-xs text-sm font-bold leading-7 text-black/45">
-                              {t.addLink}
-                            </p>
-                          </div>
-                        )}
+                        <div className="mt-4 flex min-h-11 items-center justify-between gap-3 border-t border-white/10 pt-3 text-sm font-black">
+                          <span className="text-white/45">{tour.year}</span>
+                          <span className="inline-flex items-center gap-2 text-white/78 transition group-hover:text-white">
+                            {t.explore}
+                            <span aria-hidden="true">{isRtl ? "←" : "→"}</span>
+                          </span>
+                        </div>
                       </div>
-
-                      <a
-                        href={hasUrl ? tour.url : "#"}
-                        target={hasUrl ? "_blank" : undefined}
-                        rel={hasUrl ? "noreferrer" : undefined}
-                        className={`mt-3 flex h-11 w-full items-center justify-center rounded-full text-sm font-bold transition ${
-                          hasUrl
-                            ? "bg-[#e11d48] text-white hover:bg-[#ff2f61]"
-                            : "cursor-not-allowed bg-white/10 text-white/35"
-                        }`}
-                      >
-                        {t.explore}
-                      </a>
-                    </div>
+                    </Link>
                   </motion.article>
                 );
               })}
             </div>
           </section>
 
-          <section className="mt-6 rounded-[30px] bg-[#111] p-7 text-white sm:p-9 lg:p-11">
-            <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-              <h2 className="text-3xl font-black tracking-[-0.04em]">
+          <section className="mt-4 rounded-[22px] bg-[#111] p-5 text-white sm:mt-6 sm:rounded-[30px] sm:p-9 lg:p-11">
+            <div className="grid gap-4 sm:gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
+              <h2 className="text-2xl font-black tracking-[-0.04em] sm:text-3xl">
                 {t.noteTitle}
               </h2>
 
-              <p className="text-sm leading-8 text-white/68 sm:text-base">
+              <p className="text-sm leading-7 text-white/68 sm:text-base sm:leading-8">
                 {t.noteText}
               </p>
             </div>
@@ -638,3 +581,4 @@ export default function VirtualToursPage() {
     </main>
   );
 }
+

@@ -4,8 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import TopBar from "../../components/TopBar";
 import Footer from "../../components/Footer";
-
-type Lang = "en" | "ar" | "ku";
+import { getInitialLanguage, isRtlLanguage, type Lang } from "../../lib/language";
 
 const projects = [
   {
@@ -160,7 +159,7 @@ const pageText = {
   },
   ar: {
     badge: "مشاريعنا المنجزة",
-    title: "جزء من أعمالنا الرقمية المنجزة.",
+    title: "مشاريعنا",
     text: "مجموعة مختارة من المواقع، التطبيقات، المتاجر، المنيوهات، صفحات الحجز، والمنصات الإلكترونية التي نفذتها أبعاد العراق.",
     note: "بعض المواقع قد لا تسمح بالعرض داخل iframe لأسباب أمنية. في هذه الحالة استخدم زر فتح المشروع.",
     open: "فتح المشروع",
@@ -199,10 +198,10 @@ const pageText = {
 };
 
 export default function ProjectsPage() {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState(getInitialLanguage);
 
   const t = pageText[lang];
-  const isRtl = lang === "ar" || lang === "ku";
+  const isRtl = isRtlLanguage(lang);
 
   return (
     <main
@@ -416,3 +415,4 @@ function ProjectCard({
     </motion.article>
   );
 }
+

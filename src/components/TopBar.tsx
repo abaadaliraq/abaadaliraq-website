@@ -5,8 +5,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Manrope, Noto_Kufi_Arabic } from "next/font/google";
-
-type Lang = "en" | "ar" | "ku";
+import {
+  ensureStoredLanguage,
+  isRtlLanguage,
+  persistLanguage,
+  syncDocumentLanguage,
+  type Lang,
+} from "../lib/language";
 
 type TopBarProps = {
   lang: Lang;
@@ -59,20 +64,20 @@ const languages: { key: Lang; label: string }[] = [
 export default function TopBar({ lang, setLang }: TopBarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const isRtl = lang === "ar" || lang === "ku";
+  const isRtl = isRtlLanguage(lang);
   const fontClass = isRtl ? arabicFont.className : latinFont.className;
   useEffect(() => {
-  const savedLang = localStorage.getItem("abaad_lang") as Lang | null;
+    setLang(ensureStoredLanguage());
+  }, [setLang]);
 
-  if (savedLang === "en" || savedLang === "ar" || savedLang === "ku") {
-    setLang(savedLang);
-  }
-}, [setLang]);
+  useEffect(() => {
+    syncDocumentLanguage(lang);
+  }, [lang]);
 
-const handleLangChange = (value: Lang) => {
-  setLang(value);
-  localStorage.setItem("abaad_lang", value);
-};
+  const handleLangChange = (value: Lang) => {
+    setLang(value);
+    persistLanguage(value);
+  };
   return (
     <header
       dir={isRtl ? "rtl" : "ltr"}
@@ -198,3 +203,4 @@ className={`${fontClass} absolute left-0 top-0 z-[100] w-full px-4 pt-4 sm:px-6 
     </header>
   );
 }
+

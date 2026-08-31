@@ -5,8 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import TopBar from "../../components/TopBar";
 import Footer from "../../components/Footer";
-
-type Lang = "en" | "ar" | "ku";
+import { getInitialLanguage, isRtlLanguage } from "../../lib/language";
 
 const text = {
   en: {
@@ -149,10 +148,10 @@ const text = {
 };
 
 export default function AboutPage() {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState(getInitialLanguage);
 
   const t = text[lang];
-  const isRtl = lang === "ar" || lang === "ku";
+  const isRtl = isRtlLanguage(lang);
 
   return (
     <main
